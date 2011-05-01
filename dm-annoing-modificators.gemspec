@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Markus Schirp"]
   s.date = %q{2011-05-01}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{This gem adds DataMapper::Resource#update_or_raise, DataMapper::Resource#save_or_raise and DataMapper::Model#create_or_raise these are needed for my own coding style}
   s.email = %q{mbj@seonic.net}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "ci.sh",
+    "dm-annoing-modificators.gemspec",
     "lib/dm-annoing-modificators.rb",
     "spec/model_spec.rb",
     "spec/resource_spec.rb",

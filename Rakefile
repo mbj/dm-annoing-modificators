@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/mbj/dm-annoing-modificators"
   gem.license = "MIT"
   gem.summary = %Q{adds various *_or_raise methods to model and collections}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{This gem adds DataMapper::Resource#update_or_raise, DataMapper::Resource#save_or_raise and DataMapper::Model#create_or_raise these are needed for my own coding style}
   gem.email = "mbj@seonic.net"
   gem.authors = ["Markus Schirp"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
