@@ -1,6 +1,16 @@
 require 'dm-core'
 
 module DataMapper
+  class Collection
+    def create_or_raise(*args)
+      model = create(*args)
+      unless model.saved?
+        raise SaveFailureError.new("create returned false, #{self} was not saved, errors: #{model.errors.inspect}", self)
+      end
+      model
+    end
+  end
+
   module Model
     def create_or_raise(*args)
       model = create(*args)
