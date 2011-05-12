@@ -19,6 +19,8 @@ class Book
   include DataMapper::Resource
   property :id,Serial
   property :name, String, :required => true
+  property :author, String
+  validates_presence_of :author, :when => [:published]
 end
 
 DataMapper.auto_migrate!
