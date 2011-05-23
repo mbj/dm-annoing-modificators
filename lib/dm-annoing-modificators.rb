@@ -30,6 +30,14 @@ module DataMapper
       result
     end
 
+    def save_or_raise!(*args)
+      result = save!(*args)
+      unless result
+        raise SaveFailureError.new("save! returned false, #{model} was not saved, errors: #{errors.inspect}", self)
+      end
+      result
+    end
+
     def update_or_raise(*args)
       result = update(*args)
       unless result
