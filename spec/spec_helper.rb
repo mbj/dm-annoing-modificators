@@ -18,7 +18,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 class Book
   include DataMapper::Resource
   property :id,Serial
-  property :name, String, :required => true
+  property :name, String, :required => true, :unique => true
   property :author, String
   validates_presence_of :author, :when => [:published]
 end
@@ -26,5 +26,7 @@ end
 DataMapper.auto_migrate!
 
 RSpec.configure do |config|
-  
+  config.before :each do
+    Book.all.destroy!
+  end
 end

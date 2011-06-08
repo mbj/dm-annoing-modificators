@@ -19,6 +19,14 @@ module DataMapper
       end
       model
     end
+
+    def first_or_create_or_raise(*args)
+      model = first_or_create(*args)
+      unless model.saved?
+        raise SaveFailureError.new("first_or_create returned false, #{self} was not saved, errors: #{model.errors.inspect}", self)
+      end
+      model
+    end
   end
 
   module Resource
