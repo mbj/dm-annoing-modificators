@@ -4,15 +4,19 @@ module DataMapper
   module RaiseSaveFailure
     def raise_save_failure(resource,operation)
       message = "#{operation} returned false\nresource:\n#{resource.attributes.inspect}\nerrors:\n#{format_errors(resource.errors)}"
-      raise SaveFailureError.new(message)
+      raise SaveFailureError.new(message,resource)
     end
 
     private
 
     def format_errors(errors)
-      errors.map do |attribute_name,errors|
-        "#{attribute_name}:\n#{errors.map { |error| "#{error.rule.class} - #{error.custom_message}" }}"
-      end.join("\n")
+      message = []
+      errors.map do |errors|
+        errors.each do |error|
+          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
+        end
+      end
+      message.join "\n"
     end
   end
 
