@@ -3,6 +3,7 @@ require 'dm-core'
 module DataMapper
   module RaiseSaveFailure
     def raise_save_failure(resource,operation)
+      resource.valid? unless resource.errors
       message = "#{operation} returned false\nresource:\n#{resource.attributes.inspect}\nerrors:\n#{format_errors(resource.errors)}"
       raise SaveFailureError.new(message,resource)
     end
@@ -27,7 +28,7 @@ module DataMapper
       unless resource.saved?
         raise_save_failure(resource,:create_or_raise)
       end
-      model
+      resource
     end
   end
 
