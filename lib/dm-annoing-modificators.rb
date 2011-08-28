@@ -1,14 +1,19 @@
 require 'dm-core'
+require 'pp'
 
 module DataMapper
   module RaiseSaveFailure
     def raise_save_failure(resource,operation)
       resource.valid? unless resource.errors
-      message = "#{operation} returned false\nresource:\n#{resource.attributes.inspect}\nerrors:\n#{format_errors(resource.errors)}"
+      message = "#{operation} returned false\nresource:\n#{format_attributes(resource.attributes)}\nerrors:\n#{format_errors(resource.errors)}"
       raise SaveFailureError.new(message,resource)
     end
 
     private
+
+    def format_attributes(attributes,indent=2)
+      attributes.pretty_inspect
+    end
 
     def format_errors(errors)
       message = []
