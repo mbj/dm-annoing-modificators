@@ -1,39 +1,67 @@
 require 'dm-core'
+require 'pp'
 
 module DataMapper
-  class Collection
-    def create_or_raise(*args)
-      model = create(*args)
-      unless model.saved?
-        raise SaveFailureError.new("create returned false, #{self} was not saved, errors: #{model.errors.inspect}", self)
+  module RaiseSaveFailure
+    def raise_save_failure(resource,operation)
+      resource.valid? unless resource.errors
+      message = "#{operation} returned false\nresource:\n#{format_attributes(resource.attributes)}\nerrors:\n#{format_errors(resource.errors)}"
+      raise SaveFailureError.new(message,resource)
+    end
+
+    private
+
+    def format_attributes(attributes,indent=2)
+      attributes.pretty_inspect
+    end
+
+    def format_errors(errors)
+      message = []
+      errors.map do |errors|
+        errors.each do |error|
+          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
+        end
       end
-      model
+      message.join "\n"
+    end
+  end
+
+  class Collection
+    include RaiseSaveFailure
+    def create_or_raise(*args)
+      resource = create(*args)
+      unless resource.saved?
+        raise_save_failure(resource,:create_or_raise)
+      end
+      resource
     end
   end
 
   module Model
+    include RaiseSaveFailure
     def create_or_raise(*args)
-      model = create(*args)
-      unless model.saved?
-        raise SaveFailureError.new("create returned false, #{self} was not saved, errors: #{model.errors.inspect}", self)
+      resource = create(*args)
+      unless resource.saved?
+        raise_save_failure(resource,:create_or_raise)
       end
-      model
+      resource
     end
 
     def first_or_create_or_raise(*args)
-      model = first_or_create(*args)
-      unless model.saved?
-        raise SaveFailureError.new("first_or_create returned false, #{self} was not saved, errors: #{model.errors.inspect}", self)
+      resource = first_or_create(*args)
+      unless resource.saved?
+        raise_save_failure(resource,:first_or_create_or_raise)
       end
-      model
+      resource
     end
   end
 
   module Resource
+    include RaiseSaveFailure
     def save_or_raise(*args)
       result = save(*args)
       unless result
-        raise SaveFailureError.new("save returned false, #{model} was not saved, errors: #{errors.inspect}", self)
+        raise_save_failure(self,:save_or_raise)
       end
       result
     end
@@ -41,7 +69,7 @@ module DataMapper
     def save_or_raise!(*args)
       result = save!(*args)
       unless result
-        raise SaveFailureError.new("save! returned false, #{model} was not saved, errors: #{errors.inspect}", self)
+        raise_save_failure(self,:save_or_raise!)
       end
       result
     end
@@ -49,7 +77,7 @@ module DataMapper
     def update_or_raise(*args)
       result = update(*args)
       unless result
-        raise SaveFailureError.new("update returned false, #{model} was not saved, errors: #{errors.inspect}", self)
+        raise_save_failure(self,:update_or_raise!)
       end
       result
     end
