@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{dm-annoing-modificators}
-  s.version = "0.0.0"
+  s.name = "dm-annoing-modificators"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Markus Schirp"]
-  s.date = %q{2011-05-01}
-  s.description = %q{This gem adds DataMapper::Resource#update_or_raise, DataMapper::Resource#save_or_raise and DataMapper::Model#create_or_raise these are needed for my own coding style}
-  s.email = %q{mbj@seonic.net}
+  s.date = "2011-09-11"
+  s.description = "This gem adds DataMapper::Resource#update_or_raise, DataMapper::Resource#save_or_raise and DataMapper::Model#create_or_raise these are needed for my own coding style"
+  s.email = "mbj@seonic.net"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -19,9 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
-    ".rvmrc",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -33,16 +31,11 @@ Gem::Specification.new do |s|
     "spec/resource_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/mbj/dm-annoing-modificators}
+  s.homepage = "http://github.com/mbj/dm-annoing-modificators"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.2}
-  s.summary = %q{adds various *_or_raise methods to model and collections}
-  s.test_files = [
-    "spec/model_spec.rb",
-    "spec/resource_spec.rb",
-    "spec/spec_helper.rb"
-  ]
+  s.rubygems_version = "1.8.10"
+  s.summary = "adds various *_or_raise methods to model and collections"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
