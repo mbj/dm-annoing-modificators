@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'dm-core'
 
 group :development do
-  gem 'dm-sqlite-adapter' 
+  gem 'dm-sqlite-adapter'
   gem 'dm-validations'
   gem 'dm-migrations'
   gem 'rspec'
