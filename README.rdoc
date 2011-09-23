@@ -1,6 +1,12 @@
 = dm-annoing-modificators
 
-Description goes here.
+dm-annoing-modificators is a little addition to normal datamapper Resource methods like #save, #update etc.
+It duplicates raise_on_save_failure = true functionallity. But it is more flexible in case you cannot activate 
+raise_on_save_falure when third party software/libraries do not handle exceptions gracefully.
+
+All "commmand" methods have a ${name}_or_raise counterpart.
+
+I normally only use these methods with specs or fixtures. Not in applicaiton domain logic.
 
 == Contributing to dm-annoing-modificators
  
