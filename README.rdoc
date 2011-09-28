@@ -1,13 +1,15 @@
 = dm-annoing-modificators
 
-dm-annoing-modificators is a little addition to normal datamapper Resource methods like #save, #update etc.
-It duplicates raise_on_save_failure = true functionality. But it is more flexible in case you cannot activate 
-raise_on_save_failure when third party software/libraries do not handle exceptions gracefully.
+dm-annoing-modificators is a little addition to datamappers Resource methods like #save, #update etc.
+
+It duplicates raise_on_save_failure = true functionality. But it is more flexible in case you cannot enable 
+raise_on_save_failure when third party software/libraries do not handle the exceptions gracefully.
 
 All "command" methods have a ${name}_or_raise counterpart.
 
 I normally only use these methods with specs or fixtures. Not in application domain logic.
 
+A word of warning: This gem only works correctly when used with dm-validations form emmanuel/dm-validations feature/reorganize!
 == Contributing to dm-annoing-modificators
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
