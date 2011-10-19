@@ -4,8 +4,12 @@ require 'pp'
 module DataMapper
   module RaiseSaveFailure
     def raise_save_failure(resource,operation)
-      resource.valid? unless resource.errors
-      message = "#{operation} returned false\nresource:\n#{format_attributes(resource.attributes)}\nerrors:\n#{format_errors(resource.errors)}"
+      if resource.respond_to? :errors
+        additional = "\nerrors:\n#{format_errors(resource.errors)}"
+      else
+        additional = "\nvalidations not present"
+      end
+      message = "#{operation} returned false, resource:\n#{format_attributes(resource.attributes)}#{additional}"
       raise SaveFailureError.new(message,resource)
     end
 
