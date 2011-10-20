@@ -12,7 +12,7 @@ module DataMapper
       else
         additional = "\nvalidations not present"
       end
-      message = "#{operation} returned false, resource:\n#{attributes.pretty_inspect}#{additional}"
+      message = "#{operation} returned false, resource:\n#{resource.attributes.pretty_inspect}#{additional}"
       raise SaveFailureError.new(message,resource)
     end
 
