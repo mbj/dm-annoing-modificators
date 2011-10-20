@@ -3,21 +3,20 @@ require 'pp'
 
 module DataMapper
   module RaiseSaveFailure
-    def raise_save_failure(resource,operation)
+    def raise_save_failure(resource,operation,context=:default)
+      if resource.respond_to? :valid?
+        resource.valid? context
+      end
       if resource.respond_to? :errors
         additional = "\nerrors:\n#{format_errors(resource.errors)}"
       else
         additional = "\nvalidations not present"
       end
-      message = "#{operation} returned false, resource:\n#{format_attributes(resource.attributes)}#{additional}"
+      message = "#{operation} returned false, resource:\n#{attributes.pretty_inspect}#{additional}"
       raise SaveFailureError.new(message,resource)
     end
 
     private
-
-    def format_attributes(attributes,indent=2)
-      attributes.pretty_inspect
-    end
 
     def format_errors(errors)
       message = []
@@ -26,7 +25,7 @@ module DataMapper
           message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
         end
       end
-      message.join "\n"
+      message.empty? ? ' -- NONE --' : message.join("\n")
     end
   end
 
@@ -62,10 +61,10 @@ module DataMapper
 
   module Resource
     include RaiseSaveFailure
-    def save_or_raise(*args)
-      result = save(*args)
+    def save_or_raise(context=:default)
+      result = save(context)
       unless result
-        raise_save_failure(self,:save_or_raise)
+        raise_save_failure(self,:save_or_raise,context)
       end
       result
     end
