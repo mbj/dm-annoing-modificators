@@ -49,6 +49,7 @@ module DataMapper
 
   module Resource
     include RaiseSaveFailure
+
     def save_or_raise(context=:default)
       result = save(context)
       unless result
