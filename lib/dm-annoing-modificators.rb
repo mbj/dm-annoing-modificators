@@ -8,24 +8,12 @@ module DataMapper
         resource.valid? context
       end
       if resource.respond_to? :errors
-        additional = "\nerrors:\n#{format_errors(resource.errors)}"
+        additional = "\nerrors:\n#{resource.inspect_errors}"
       else
         additional = "\nvalidations not present"
       end
       message = "#{operation} returned false, resource:\n#{resource.attributes.pretty_inspect}#{additional}"
       raise SaveFailureError.new(message,resource)
-    end
-
-    private
-
-    def format_errors(errors)
-      message = []
-      errors.map do |errors|
-        errors.each do |error|
-          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
-        end
-      end
-      message.empty? ? ' -- NONE --' : message.join("\n")
     end
   end
 
@@ -67,6 +55,16 @@ module DataMapper
         raise_save_failure(self,:save_or_raise,context)
       end
       result
+    end
+
+    def inspect_errors
+      message = []
+      errors.map do |errors|
+        errors.each do |error|
+          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
+        end
+      end
+      message.empty? ? ' -- NONE --' : message.join("\n")
     end
 
     def save_or_raise!(*args)
