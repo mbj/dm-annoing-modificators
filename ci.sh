@@ -3,5 +3,5 @@
 source /etc/profile
 rvm use ruby-1.9.2
 gem install bundler --user
-bundle install --deployment
+bundle install vendor
 bundle exec rspec spec
