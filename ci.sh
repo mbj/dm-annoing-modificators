@@ -3,5 +3,5 @@
 source /etc/profile
 rvm use ruby-1.9.3
 gem install bundler --user
-bundle install vendor
+bundle install --path vendor
 bundle exec rspec spec
