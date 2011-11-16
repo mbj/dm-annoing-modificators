@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
 
   s.rubygems_version = '1.8.10'
 
-  s.add_runtime_dependency(%q<dm-core>,           ['~> 1.3.0.beta'])
-  s.add_runtime_dependency(%q<dm-validations>,    ['~> 1.3.0.beta'])
-  s.add_runtime_dependency(%q<dm-migrations>,     ['~> 1.3.0.beta'])
-  s.add_runtime_dependency(%q<dm-sqlite-adapter>, ['~> 1.3.0.beta'])
-  s.add_runtime_dependency(%q<dm-do-adapter>, ['~> 1.3.0.beta'])
+  s.add_runtime_dependency(%q<dm-core>,               ['~> 1.3.0.beta'])
+  s.add_development_dependency(%q<dm-validations>,    ['~> 1.3.0.beta'])
+  s.add_development_dependency(%q<dm-migrations>,     ['~> 1.3.0.beta'])
+  s.add_development_dependency(%q<dm-sqlite-adapter>, ['~> 1.3.0.beta'])
+  s.add_development_dependency(%q<dm-do-adapter>,     ['~> 1.3.0.beta'])
 
   s.add_development_dependency(%q<rake>,      ['~> 0.8.7'])
   s.add_development_dependency(%q<rspec>,     ['~> 2.7'])
