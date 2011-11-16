@@ -1,15 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'dm-core'
+gemspec
+
+gem 'dm-core', :git => 'git://github.com/datamapper/dm-core'
 
 group :development do
-  gem 'dm-sqlite-adapter'
-  gem 'dm-validations'
-  gem 'dm-migrations'
+  gem 'dm-validations', :git => 'git://github.com/datamapper/dm-validations'
+  gem 'dm-migrations', :git => 'git://github.com/datamapper/dm-migrations'
+  gem 'dm-sqlite-adapter', :git => 'git://github.com/datamapper/dm-sqlite-adapter'
+  gem 'dm-do-adapter', :git => 'git://github.com/datamapper/dm-do-adapter'
   gem 'rspec'
-  gem 'bundler'
-  gem 'jeweler'
-  gem 'rcov'
-  gem 'reek'
-  gem 'roodi'
 end
