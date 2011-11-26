@@ -3,6 +3,16 @@ require 'pp'
 
 module DataMapper
   module RaiseSaveFailure
+    def self.format_errors(errors)
+      message = []
+      errors.map do |errors|
+        errors.each do |error|
+          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
+        end
+      end
+      message.empty? ? ' -- NONE --' : message.join("\n")
+    end
+
     def raise_save_failure(resource,operation,context=:default)
       if resource.respond_to? :valid?
         resource.valid? context
@@ -59,13 +69,7 @@ module DataMapper
     end
 
     def inspect_errors
-      message = []
-      errors.map do |errors|
-        errors.each do |error|
-          message << "#{error.attribute_name}: #{error.rule.class} - #{error.message}"
-        end
-      end
-      message.empty? ? ' -- NONE --' : message.join("\n")
+      RaiseSaveFailure.format_errors(errors)
     end
 
     def save_or_raise!(*args)
